@@ -20,16 +20,14 @@ contract Lock {
         owner = payable(msg.sender);
     }
 
-    function withdraw() public {
-        // Uncomment this line, and the import of "hardhat/console.sol", to print a log in your terminal
-        // console.log("Unlock time is %o and block timestamp is %o", unlockTime, block.timestamp);
-
+    function withdraw(uint256 amount) public {
         require(block.timestamp >= unlockTime, "You can't withdraw yet");
         require(msg.sender == owner, "You aren't the owner");
+        require(amount <= address(this).balance, "Insufficient contract balance");
+        
+        emit Withdrawal(amount, block.timestamp);
 
-        emit Withdrawal(address(this).balance, block.timestamp);
-
-        owner.transfer(address(this).balance);
+        owner.transfer(amount);  // Transfer the specified amount
     }
 
     function deposit() public payable {
