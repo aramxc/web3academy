@@ -6,8 +6,28 @@ Try running some of the following tasks:
 
 ```shell
 npx hardhat help
+
+//Test:
 npx hardhat test
-REPORT_GAS=true npx hardhat test
+
+//Compile after changes:
+npx hardhat compile
+
+//Run node:
 npx hardhat node
-npx hardhat ignition deploy ./ignition/modules/Lock.ts
+
+//Make sure that .ignition/parameters.json is updated with the correct params
+
+//Deploy the contract:
+npx hardhat ignition deploy ./ignition/modules/Lock.ts --network localhost --parameters ./ignition/parameters.json
+
+//Copy .artifacts/contracts/Lock.sol/Lock.json abi list to frontend/src/utils/Lock_ABI.json
+
+//Copy deployed address to frontend/src/utils/constants.ts
+
+//Test with gas report:
+REPORT_GAS=true npx hardhat test
+
+
+
 ```
